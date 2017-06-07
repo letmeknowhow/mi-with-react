@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import {
+  Link
+} from 'react-router-dom'
 import cs from 'classnames'//引入classnames依赖库
 import styles from './TopBar.scss'
 
@@ -12,7 +15,8 @@ const navs = [
   { name: '云服务', sourceUrl: 'https://i.mi.com/' },
   { name: '小米网移动版', sourceUrl: 'http://www.mi.com/c/appdownload/' },
   { name: '问题反馈', sourceUrl: 'http://static.mi.com/feedback/' },
-  { name: 'Select Region', sourceUrl: 'http://www.mi.com/index.html' }
+  { name: 'Select Region', sourceUrl: 'http://www.mi.com/index.html' },
+  { name: '关于', sourceUrl: '/about' }
 ]
 
 class TopBar extends Component {
@@ -42,11 +46,19 @@ class TopBar extends Component {
             <a href={nav.sourceUrl} className="nav-name">{nav.name}</a>
           </li>
         )
+      } else if (nav.name === '关于') {
+        return (
+          <li key={idx} className="nav clearfix">
+            <Link to={nav.sourceUrl}>
+              <a className="nav-name" target="_blank" rel="noopener noreferrer">{nav.name}</a>
+            </Link>
+          </li>
+        )
       } else {
         return (
           <li key={idx} className="nav clearfix">
             <a href={nav.sourceUrl} className="nav-name" target="_blank" rel="noopener noreferrer">{nav.name}</a>
-            {idx !== 8 ? <span className="nav-separate">|</span> : null}
+            {idx !== navs.length - 1 ? <span className="nav-separate">|</span> : null}
           </li>
         )
       }
